@@ -3,6 +3,8 @@ import { Container } from './styles'
 
 interface ButtonProps {
   children: ReactNode
+  background?: string
+  color?: string
   onClick: () => void
 }
 
