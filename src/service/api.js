@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'http://localhost:8040/',
+  baseURL: 'https://dev.codeleap.co.uk/',
 })
 
 export default api

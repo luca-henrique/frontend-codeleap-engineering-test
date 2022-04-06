@@ -5,6 +5,7 @@ import Button from 'src/components/atoms/Button'
 
 import { Title } from 'src/components/Typography'
 import useLocalStorage from 'src/hook/useLocalStorageHook'
+import { useHistory } from 'react-router'
 import { Container, Form } from './style'
 
 export const SignUp = () => {
@@ -12,9 +13,13 @@ export const SignUp = () => {
 
   const [, setName] = useLocalStorage<string>('username', 'Bob')
 
+  const history = useHistory()
+
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setName(username)
+
+    history.push('/main')
   }
 
   return (
@@ -29,6 +34,7 @@ export const SignUp = () => {
           placeholder="Jonh doe"
           value={username}
           onChange={setUsername}
+          required
         />
 
         <div style={{ height: '20px' }} />

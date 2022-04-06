@@ -1,19 +1,13 @@
 import { takeLatest, all, call, put } from 'redux-saga/effects'
 import Types from './types'
 import api from 'src/service/api'
-import { getLocationUser } from './actions'
 
-export function* getMarket() {
-  const response = yield call(api.get, '/petshops')
-  const res = response.data
-}
-
-export function* createMarket({ data }) {
+export function* createPost({ data }) {
   try {
     console.log(data)
-  } catch (error) {
-    console.log(error)
-  }
+    const response = yield call(api.post, 'careers', data)
+    console.log(response)
+  } catch (error) {}
 }
 
-export default all([])
+export default all([takeLatest(Types.CREATE_POST_REQUEST, createPost)])

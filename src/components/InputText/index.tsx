@@ -27,7 +27,7 @@ const InputText = ({
     <Container>
       <Label>{label}</Label>
 
-      <Input value={value} type={type} onChange={handleChange} />
+      <Input value={value} type={type} onChange={handleChange} {...rest} />
     </Container>
   )
 }

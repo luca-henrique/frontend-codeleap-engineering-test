@@ -23,7 +23,7 @@ export const Routes = () => {
   return (
     <Suspense fallback={<p>Carregando...</p>}>
       <Switch>
-        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/" component={SignUp} />
         <Route exact path="/main" component={Main} />
 
         <Route path="/404" component={GenericNotFound} />

@@ -26,4 +26,6 @@ export const Container = styled.button<PropsButton>`
   font-weight: 700;
   font-size: 16px;
   line-height: 19px;
+
+  width: 100%;
 `
