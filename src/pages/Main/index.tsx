@@ -1,12 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import InputText from 'src/components/InputText'
 import { Icons } from 'src/assets'
 
 import { Title } from 'src/components/Typography'
 import Button from 'src/components/atoms/Button'
-import { createPostRequest } from 'src/store/modules/exemple/actions'
+import {
+  createPostRequest,
+  readPostRequest,
+} from 'src/store/modules/exemple/actions'
 import { useDispatch } from 'react-redux'
 import useLocalStorage from 'src/hook/useLocalStorageHook'
+import styled from 'styled-components'
 
 export const Main = () => {
   return (
@@ -15,31 +19,78 @@ export const Main = () => {
 
       <FormCreateNewPost />
 
-      <div
-        style={{
-          padding: '0px 38px',
-        }}
-      >
-        <header>
-          <Title>My First Post at CodeLeap Network!</Title>
-          <div>
-            <img src={Icons.delete} alt="delete" />
-            <img src={Icons.edit} alt="edit" />
-          </div>
-        </header>
+      <ListPost />
+    </div>
+  )
+}
 
-        <div>
-          <h5>@Victor</h5>
-          <h5>25 minutes ago</h5>
+export const Label = styled.h6`
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+
+  color: #777777;
+`
+
+export const LabelTime = styled.h6`
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #777777;
+`
+
+export const Description = styled.h6`
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+
+  color: #000000;
+`
+
+const PostItem = ({ item }) => {
+  const [name] = useLocalStorage<string>('username', 'Bob')
+
+  return (
+    <div
+      style={{
+        marginTop: '34px',
+        border: '1px solid #999999',
+      }}
+    >
+      <Header
+        title="My First Post at CodeLeap Network!"
+        colorTitle="primaryDefaultWhite"
+        icons={name === item?.username}
+      />
+
+      <div style={{ padding: '23px 30px' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Label>@Victor</Label>
+          <LabelTime>25 minutes ago</LabelTime>
         </div>
-        <div>
-          Curabitur suscipit suscipit tellus. Phasellus consectetuer vestibulum
-          elit. Pellentesque habitant morbi tristique senectus et netus et
-          malesuada fames ac turpis egestas. Maecenas egestas arcu quis ligula
-          mattis placerat. Duis vel nibh at velit scelerisque suscipit. Duis
-          lobortis massa imperdiet quam. Aenean posuere, tortor sed cursus
-          feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis
-          lacus. Fusce a quam. Nullam vel sem. Nullam cursus lacinia erat.
+        <div style={{ marginTop: '18px' }}>
+          <Description>
+            Curabitur suscipit suscipit tellus. Phasellus consectetuer
+            vestibulum elit. Pellentesque habitant morbi tristique senectus et
+            netus et malesuada fames ac turpis egestas. Maecenas egestas arcu
+            quis ligula mattis placerat. Duis vel nibh at velit scelerisque
+            suscipit. Duis lobortis massa imperdiet quam. Aenean posuere, tortor
+            sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna
+            dolor sagittis lacus. Fusce a quam. Nullam vel sem. Nullam cursus
+            lacinia erat.
+          </Description>
         </div>
       </div>
     </div>
@@ -87,8 +138,6 @@ const FormCreateNewPost = () => {
 
   const [name] = useLocalStorage<string>('username', 'Bob')
 
-  console.log(name)
-
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
 
@@ -133,5 +182,19 @@ const FormCreateNewPost = () => {
         </Button>
       </form>
     </section>
+  )
+}
+
+const ListPost = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(readPostRequest())
+  }, [])
+
+  return (
+    <div style={{ padding: '0 34px' }}>
+      <PostItem />
+    </div>
   )
 }

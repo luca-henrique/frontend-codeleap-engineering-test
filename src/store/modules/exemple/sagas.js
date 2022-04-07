@@ -10,4 +10,22 @@ export function* createPost({ data }) {
   } catch (error) {}
 }
 
-export default all([takeLatest(Types.CREATE_POST_REQUEST, createPost)])
+export function* readPost() {
+  try {
+    const response = yield call(api.get, 'careers', {
+      headers: {
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, DELETE',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type,Authorization',
+        'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Request-Headers': 'origin',
+      },
+    })
+    console.log(response)
+  } catch (error) {}
+}
+
+export default all([
+  takeLatest(Types.CREATE_POST_REQUEST, createPost),
+  takeLatest(Types.READ_POST_REQUEST, readPost),
+])
