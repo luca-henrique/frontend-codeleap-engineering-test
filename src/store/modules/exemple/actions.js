@@ -31,3 +31,19 @@ export function deletePostSuccess(id) {
 export function updatePostSuccess(data) {
   return { type: Types.EDIT_POST_SUCCESS, data }
 }
+
+export function openAlertDeletePost(id) {
+  return { type: Types.OPEN_MODAL_DELETE_POST, id }
+}
+
+export function closeAlertDeletePost() {
+  return { type: Types.CLOSE_MODAL_DELETE_POST }
+}
+
+export function openModalUpdatePost(id) {
+  return { type: Types.OPEN_MODAL_UPDATE_POST, id }
+}
+
+export function closeModalUpdatePost() {
+  return { type: Types.CLOSE_MODAL_UPDATE_POST }
+}
